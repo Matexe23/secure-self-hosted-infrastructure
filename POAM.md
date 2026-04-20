@@ -1,0 +1,21 @@
+# Network Configuration POA&M
+
+| ID | Config item | Description / goal | Planned date | Completed | Status | Notes |
+|----|-------------|-------------------|-------------|-----------|--------|-------|
+| NET-001 | VLAN design baseline | Define VLAN structure for Admin, Services, AI/Production, Storage, Utility, and IoT/Media networks | 2026-04-20 | 2026-04-20 | Complete | VLAN plan established: VLAN 10 Admin, 20 Services, 30 AI/Production, 40 Storage, 50 Utility, 60 IoT/Media |
+| NET-002 | Network architecture diagram | Document logical network layout, trust zones, and device placement for infrastructure and services | 2026-04-20 | 2026-04-20 | Complete | Diagram finalized with labeled devices and VLAN mapping |
+| NET-003 | Services host migration | Move Mini1 Proxmox host and attached service workloads to VLAN 20 Services network | 2026-04-20 | 2026-04-20 | Complete | Mini1 uplink moved to VLAN 20 and Proxmox host access restored on new subnet |
+| NET-004 | Jellyfin VM migration | Move Jellyfin VM to VLAN 20 and validate service availability on new IP | 2026-04-20 | 2026-04-20 | Complete | Jellyfin VM reachable at 192.168.20.20 and playback confirmed |
+| NET-005 | NAS segmentation | Move UGREEN NAS to VLAN 40 Storage and validate connectivity from dependent services | 2026-04-20 | 2026-04-20 | Complete | NAS moved to 192.168.40.10 and reachable from service workloads |
+| NET-006 | Cross-VLAN SMB validation | Update Jellyfin VM mount configuration to use new NAS IP and confirm persistent media access across VLAN 20 → VLAN 40 | 2026-04-20 | 2026-04-20 | Complete | `/etc/fstab` updated to `//192.168.40.10/RaidFlix`; mount survived reboot and media playback test |
+| NET-007 | Jellyfin service maintenance | Update Ubuntu and Jellyfin packages on Jellyfin VM after network migration | 2026-04-20 | 2026-04-20 | Complete | Ubuntu and Jellyfin updated successfully after VLAN cutover |
+| NET-008 | Minecraft service validation | Confirm Minecraft server binding behavior after IP change and restore service on new network | 2026-04-20 | 2026-04-20 | Complete | `server-ip` left blank; Java runtime updated and Minecraft server brought back online |
+| NET-009 | AI host migration | Move Ryzen AI Proxmox host to VLAN 30 AI/Production network and restore management access | 2026-04-20 | — | Planned | Use same simple migration model as Mini1 for now: host and workloads share VLAN 30 path |
+| NET-010 | AI workload validation | Confirm AI services/VMs function normally after VLAN 30 migration | 2026-04-20 | — | Planned | Validate IP addressing, storage access, and application reachability after host move |
+| NET-011 | Utility network migration | Move Pi DNS and Pi Monitor systems to VLAN 50 Utility network | 2026-04-21 | — | Planned | Validate DNS, monitoring, logging, and dependent service visibility after migration |
+| NET-012 | Admin network hardening | Restrict UniFi management, NAS admin, Proxmox access, and JetKVM to VLAN 10 Admin devices only | 2026-04-21 | — | Planned | End-state goal is dedicated management path for control plane access |
+| NET-013 | Firewall policy tightening | Reduce broad inter-VLAN access and allow only required traffic between services, storage, utility, and client networks | 2026-04-21 | — | Planned | Start with minimum rules for Jellyfin → NAS SMB, client → Jellyfin, and approved admin access |
+| NET-014 | IoT/Media client migration | Place TVs, media clients, and low-trust devices on VLAN 60 and validate access only to required services | 2026-04-21 | — | Planned | Allow access to Jellyfin and required internet services only |
+| NET-015 | AI enclave firewall integration | Place VLAN 30 AI/Production behind dedicated firewall boundary for more controlled ingress/egress | 2026-04-22 | — | Planned | Deferred until base VLAN migrations are stable |
+| NET-016 | Proxmox management redesign | Rework both Proxmox hosts so host management lives on VLAN 10 while guest workloads remain on service-specific VLANs | 2026-04-25 | — | Deferred | Cleaner long-term design; not required for current working state |
+| NET-017 | Documentation refresh | Update README, network notes, and project tracker to reflect completed migrations and validated dependencies | 2026-04-20 | — | In progress | Include final IPs, mount dependencies, test results, and next-step plan |
