@@ -1,4 +1,4 @@
-# Network Configuration POA&M
+# POA&M
 
 | ID | Config item | Description / goal | Planned date | Completed | Status | Notes |
 |----|-------------|-------------------|-------------|-----------|--------|-------|
